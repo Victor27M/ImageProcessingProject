@@ -10,8 +10,22 @@ add_executable(ImageProcessingProject
     src/main.cpp
 )
 
-target_link_libraries(ImageProcessingProject 
+# Fedora's OpenCV needs gdal and pq, Windows/vcpkg does not
+if(UNIX AND NOT APPLE)
+    find_library(GDAL_LIB gdal)
+    find_library(PQ_LIB pq)
+    set(EXTRA_LIBS "")
+    if(GDAL_LIB)
+        list(APPEND EXTRA_LIBS ${GDAL_LIB})
+    endif()
+    if(PQ_LIB)
+        list(APPEND EXTRA_LIBS ${PQ_LIB})
+    endif()
+else()
+    set(EXTRA_LIBS "")
+endif()
+
+target_link_libraries(ImageProcessingProject
     ${OpenCV_LIBS}
-    gdal
-    pq
+    ${EXTRA_LIBS}
 )
