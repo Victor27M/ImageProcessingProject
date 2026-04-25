@@ -1,0 +1,10 @@
+build/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.user
+.vs/
+.vscode/
+*.mp4
+*.avi
+*.mov
